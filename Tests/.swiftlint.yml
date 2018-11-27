@@ -1,0 +1,32 @@
+disabled_rules: # rule identifiers to exclude from running
+  - line_length
+  - identifier_name
+  - type_name
+  - large_tuple
+  - file_length
+  - function_body_length
+  - type_body_length
+  - weak_delegate
+  - nesting
+  - force_try
+  - force_cast
+opt_in_rules:
+  - empty_count
+  - empty_string
+  - empty_xctest_method
+  - closure_end_indentation
+  - conditional_returns_on_newline
+  - convenience_type
+  - switch_case_on_newline
+custom_rules:
+  vertical_whitespace_return:
+    includes: "*.swift"
+    name: "Space above Return"
+    regex: '\S[^{\s:|in]\n[\t ]+return'
+    message: "Vertical whitespace required above return statement."
+  vertical_whitespace_closing_braces:
+    includes: "*.swift"
+    regex: '\n[ \t]*\n[ \t]*[)}\]]'
+    name: "Vertical Whitespace before Closing Braces"
+    message: "Don't include vertical whitespace (empty line) before closing braces."
+    severity: warning
