@@ -20,7 +20,6 @@ public final class JWTAuthProvider: Provider {
         try services.register(Authentication.AuthenticationProvider())
         services.register(JWKSSignerRepository.Config.self)
         services.register(JWKSSignerRepository.self)
-        services.register(JWTAuthenticationMiddleware.self)
     }
 
     public func didBoot(_ worker: Container) throws -> EventLoopFuture<Void> {
