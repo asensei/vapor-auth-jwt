@@ -1,3 +1,11 @@
+//
+//  JWK+KeyOperation.swift
+//  JWTAuth
+//
+//  Created by Valerio Mazzeo on 26/11/2018.
+//  Copyright © 2018 Asensei Inc. All rights reserved.
+//
+
 import Foundation
 
 public extension JWK {
