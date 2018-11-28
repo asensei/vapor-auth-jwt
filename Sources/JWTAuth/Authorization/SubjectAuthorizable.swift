@@ -10,28 +10,29 @@ import Foundation
 
 public protocol SubjectAuthorizable: Authorizable {
 
-    associatedtype SubjectType: Equatable
+    associatedtype SubjectType
 
-    func requireAuthorized(_ subject: SubjectType) throws
+    func requireAuthorized(subject: SubjectType) throws
 }
 
 public extension SubjectAuthorizable {
 
-    public func isAuthorized(_ subject: SubjectType) -> Bool {
-        return (try? self.requireAuthorized(subject)) != nil
+    public func isAuthorized(subject: SubjectType) -> Bool {
+        return (try? self.requireAuthorized(subject: subject)) != nil
     }
 }
 
 public extension SubjectAuthorizable where Self.SubjectType: Hashable {
 
-    public func requireAuthorized(anyOf subjects: Set<SubjectType>) throws {
+    public func requireAuthorized(anyOfSubjects subjects: Set<SubjectType>) throws {
 
         var lastError: Swift.Error?
 
         for subject in subjects {
             do {
-                try self.requireAuthorized(subject)
-                break
+                try self.requireAuthorized(subject: subject)
+
+                return
             } catch {
                 lastError = error
             }
@@ -40,5 +41,9 @@ public extension SubjectAuthorizable where Self.SubjectType: Hashable {
         if let lastError = lastError {
             throw lastError
         }
+    }
+
+    public func isAuthorized(anyOfSubjects subjects: Set<SubjectType>) -> Bool {
+        return (try? self.requireAuthorized(anyOfSubjects: subjects)) != nil
     }
 }

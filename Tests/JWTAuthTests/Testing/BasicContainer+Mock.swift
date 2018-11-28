@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import Authentication
 import Vapor
 
 extension BasicContainer {
     static var mock: BasicContainer {
-        let services = Services.default()
+        var services = Services.default()
+        try! services.register(AuthenticationProvider())
 
         return BasicContainer(
             config: Config(),

@@ -11,9 +11,7 @@ import Vapor
 
 class MockClient: Client, ServiceType {
 
-    required init() {
-
-    }
+    required init() { }
 
     var send: ((Request) -> Future<Response>)?
 

@@ -12,9 +12,7 @@ import Service
 
 public final class JWTAuthProvider: Provider {
 
-    public init() {
-
-    }
+    public init() { }
 
     public func register(_ services: inout Services) throws {
         try services.register(Authentication.AuthenticationProvider())

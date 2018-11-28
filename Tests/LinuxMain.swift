@@ -17,7 +17,10 @@ XCTMain([
     testCase(JWTSignersJWTSignerRepositoryTests.allTests),
     testCase(JWTJWTSignerRepositoryTests.allTests),
     testCase(JWKSSignerRepositoryTests.allTests),
-    testCase(JWTAuthenticationMiddlewareTests.allTests)
+    testCase(JWTAuthenticationMiddlewareTests.allTests),
+    testCase(SubjectAuthorizableTests.allTests),
+    testCase(PermissionAuthorizableTests.allTests),
+    testCase(RequestAuthorizableTests.allTests)
 ])
 
 #endif

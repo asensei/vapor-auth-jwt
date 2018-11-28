@@ -27,6 +27,7 @@ class JWKSSignerRepositoryTests: XCTestCase {
 
         client.send = { request in
             XCTAssertEqual(request.http.urlString, "http://localhost/well-known/jwks.json")
+
             return request.future(request.response(JWKSSignerRepositoryTests.publicJWKS, as: .json))
         }
 
@@ -46,6 +47,7 @@ class JWKSSignerRepositoryTests: XCTestCase {
 
         client.send = { request in
             XCTAssertEqual(request.http.urlString, "http://localhost/well-known/jwks.json")
+
             return request.future(request.response(JWKSSignerRepositoryTests.publicJWKS, as: .json))
         }
 

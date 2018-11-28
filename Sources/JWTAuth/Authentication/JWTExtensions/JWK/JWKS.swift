@@ -16,7 +16,7 @@ public struct JWKS: Codable {
 
 public extension JWTSigners {
 
-    public convenience init(jwks: JWKS, skipAnonymousKeys: Bool = true) throws  {
+    public convenience init(jwks: JWKS, skipAnonymousKeys: Bool = true) throws {
         self.init()
         for jwk in jwks.keys {
             guard let kid = jwk.kid else {

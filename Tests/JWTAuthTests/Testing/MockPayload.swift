@@ -18,9 +18,7 @@ struct MockPayload: JWTAuthenticatable, JWTPayload, Equatable {
 
     let id: String
 
-    func verify(using signer: JWTSigner) throws {
-
-    }
+    func verify(using signer: JWTSigner) throws { }
 
     static func == (lhs: MockPayload, rhs: MockPayload) -> Bool {
         return lhs.id == rhs.id

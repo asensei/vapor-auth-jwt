@@ -13,33 +13,26 @@ public protocol PermissionAuthorizable: Authorizable {
 
     associatedtype PermissionType: Hashable
 
-    func requireAuthorized(_ permission: PermissionType) throws
+    func requireAuthorized(permission: PermissionType) throws
 }
 
 public extension PermissionAuthorizable {
 
-    public func isAuthorized(_ permission: PermissionType) -> Bool {
-        return (try? self.requireAuthorized(permission)) != nil
-    }
-
-    public func requireAuthorized(allOf permissions: Set<PermissionType>) throws {
+    public func requireAuthorized(allOfPermissions permissions: Set<PermissionType>) throws {
         for permission in permissions {
-            try self.requireAuthorized(permission)
+            try self.requireAuthorized(permission: permission)
         }
     }
 
-    public func isAuthorized(allOf permissions: Set<PermissionType>) -> Bool {
-        return (try? self.requireAuthorized(allOf: permissions)) != nil
-    }
-
-    public func requireAuthorized(anyOf permissions: Set<PermissionType>) throws {
+    public func requireAuthorized(anyOfPermissions permissions: Set<PermissionType>) throws {
 
         var lastError: Swift.Error?
 
         for permission in permissions {
             do {
-                try self.requireAuthorized(permission)
-                break
+                try self.requireAuthorized(permission: permission)
+
+                return
             } catch {
                 lastError = error
             }
@@ -48,5 +41,17 @@ public extension PermissionAuthorizable {
         if let lastError = lastError {
             throw lastError
         }
+    }
+
+    public func isAuthorized(permission: PermissionType) -> Bool {
+        return (try? self.requireAuthorized(permission: permission)) != nil
+    }
+
+    public func isAuthorized(allOfPermissions permissions: Set<PermissionType>) -> Bool {
+        return (try? self.requireAuthorized(allOfPermissions: permissions)) != nil
+    }
+
+    public func isAuthorized(anyOfPermissions permissions: Set<PermissionType>) -> Bool {
+        return (try? self.requireAuthorized(anyOfPermissions: permissions)) != nil
     }
 }
