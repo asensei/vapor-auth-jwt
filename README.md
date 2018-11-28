@@ -9,5 +9,5 @@ Provides custom model authentication and authorization through JWT tokens.
 
 | Name    | Required | Default | Value (e.g.) | Description |
 | ------------- |:-------------:|:-------------:|:-------------:|:-------------|
-| `JWTAUTH_JWKS_URL` | ✔ | `-` | `https://YOUR_AUTH0_DOMAIN/.well-known/jwks.json` | JWKS URL. |
+| `JWTAUTH_JWKS_URL` | ✔ | `-` | `https://YOUR_DOMAIN/.well-known/jwks.json` | JWKS URL. |
 | `JWTAUTH_JWKS_CACHE_MIN_TTL` | `-` | `60` | `60` | Minimum cache time-to-live in seconds. |
