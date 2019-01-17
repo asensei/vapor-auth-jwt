@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Vapor
 
 public protocol SubjectAuthorizable: Authorizable {
 
@@ -19,10 +18,6 @@ public protocol SubjectAuthorizable: Authorizable {
 public extension SubjectAuthorizable {
 
     public func isAuthorized(subject: SubjectType?) -> Bool {
-        guard let subject = subject else {
-            return false
-        }
-
         return (try? self.requireAuthorized(subject: subject)) != nil
     }
 }
@@ -32,7 +27,9 @@ public extension SubjectAuthorizable where Self.SubjectType: Hashable {
     public func requireAuthorized(anyOfSubjects subjects: Set<SubjectType>?) throws {
 
         guard let subjects = subjects, !subjects.isEmpty else {
-            throw Abort(.forbidden)
+            try self.requireAuthorized(subject: nil)
+
+            return
         }
 
         var lastError: Swift.Error?
