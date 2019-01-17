@@ -26,7 +26,8 @@ class SubjectAuthorizableTests: XCTestCase {
     func testRequireAuthorizedAnyOf() {
         let mock = MockAuthorizable(subject: "1234")
 
-        XCTAssertNoThrow(try mock.requireAuthorized(anyOfSubjects: []))
+        XCTAssertThrowsError(try mock.requireAuthorized(anyOfSubjects: nil))
+        XCTAssertThrowsError(try mock.requireAuthorized(anyOfSubjects: []))
         XCTAssertNoThrow(try mock.requireAuthorized(anyOfSubjects: ["1234", "5678"]))
         XCTAssertThrowsError(try mock.requireAuthorized(anyOfSubjects: ["6789", "5678"]))
         XCTAssertTrue(mock.isAuthorized(anyOfSubjects: ["1234", "5678"]))
