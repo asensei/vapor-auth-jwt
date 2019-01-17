@@ -17,7 +17,11 @@ public protocol SubjectAuthorizable: Authorizable {
 
 public extension SubjectAuthorizable {
 
-    public func isAuthorized(subject: SubjectType) -> Bool {
+    public func isAuthorized(subject: SubjectType?) -> Bool {
+        guard let subject = subject else {
+            return false
+        }
+
         return (try? self.requireAuthorized(subject: subject)) != nil
     }
 }
