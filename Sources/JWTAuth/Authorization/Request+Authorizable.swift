@@ -14,21 +14,21 @@ import Vapor
 
 public extension Request {
 
-    public func requireAuthorized<A: Authenticatable & SubjectAuthorizable>(_ type: A.Type = A.self, subject: A.SubjectType) throws {
+    public func requireAuthorized<A: Authenticatable & SubjectAuthorizable>(_ type: A.Type = A.self, subject: A.SubjectType?) throws {
         let authorizable: A = try self.requireAuthenticated()
         try authorizable.requireAuthorized(subject: subject)
     }
 
-    public func requireAuthorized<A: Authenticatable & SubjectAuthorizable>(_ type: A.Type = A.self, anyOfSubjects subjects: Set<A.SubjectType>) throws {
+    public func requireAuthorized<A: Authenticatable & SubjectAuthorizable>(_ type: A.Type = A.self, anyOfSubjects subjects: Set<A.SubjectType>?) throws {
         let authorizable: A = try self.requireAuthenticated()
         try authorizable.requireAuthorized(anyOfSubjects: subjects)
     }
 
-    public func isAuthorized<A: Authenticatable & SubjectAuthorizable>(_ type: A.Type = A.self, subject: A.SubjectType) -> Bool {
+    public func isAuthorized<A: Authenticatable & SubjectAuthorizable>(_ type: A.Type = A.self, subject: A.SubjectType?) -> Bool {
         return (try? self.requireAuthorized(A.self, subject: subject)) != nil
     }
 
-    public func isAuthorized<A: Authenticatable & SubjectAuthorizable>(_ type: A.Type = A.self, anyOfSubjects subjects: Set<A.SubjectType>) -> Bool {
+    public func isAuthorized<A: Authenticatable & SubjectAuthorizable>(_ type: A.Type = A.self, anyOfSubjects subjects: Set<A.SubjectType>?) -> Bool {
         return (try? self.requireAuthorized(A.self, anyOfSubjects: subjects)) != nil
     }
 }

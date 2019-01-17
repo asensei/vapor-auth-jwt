@@ -13,7 +13,7 @@ public protocol SubjectAuthorizable: Authorizable {
 
     associatedtype SubjectType
 
-    func requireAuthorized(subject: SubjectType) throws
+    func requireAuthorized(subject: SubjectType?) throws
 }
 
 public extension SubjectAuthorizable {

@@ -22,7 +22,7 @@ struct MockAuthorizable {
 
 extension MockAuthorizable: SubjectAuthorizable {
 
-    func requireAuthorized(subject: String) throws {
+    func requireAuthorized(subject: String?) throws {
         guard self.subject == subject else {
             throw MockAuthorizableError.invalidSubject
         }
