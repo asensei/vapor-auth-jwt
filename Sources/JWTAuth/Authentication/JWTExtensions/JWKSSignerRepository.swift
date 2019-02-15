@@ -9,7 +9,7 @@
 import Foundation
 import JWT
 import HTTP
-import Service
+import Vapor
 
 public final class JWKSSignerRepository {
 
@@ -42,7 +42,7 @@ extension JWKSSignerRepository: JWTSignerRepository {
             throw JWTError(identifier: "unknownKID", reason: "No signers are available for the supplied `kid`")
         }
 
-        return try container.client().get(self.jwksURL).flatMap { response in
+        return try container.make(Client.self).get(self.jwksURL).flatMap { response in
             return try response.content.decode(json: JWKS.self, using: JSONDecoder()).map { jwks in
                 let signers = try JWTSigners(jwks: jwks)
                 self.cache = (signers: signers, createdAt: Date())

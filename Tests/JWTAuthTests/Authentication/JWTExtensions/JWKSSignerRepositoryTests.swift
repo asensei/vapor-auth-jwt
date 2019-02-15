@@ -23,7 +23,7 @@ class JWKSSignerRepositoryTests: XCTestCase {
         let privateSigner = try JWTSigner.jwk(key: JSONDecoder().decode(JWK.self, from: JWKSSignerRepositoryTests.privateJWK))
         let signers = JWKSSignerRepository(jwksURL: "http://localhost/well-known/jwks.json")
         let container = self.mockContainer()
-        let client = try container.client() as! MockClient
+        let client = try container.make(Client.self) as! MockClient
 
         client.send = { request in
             XCTAssertEqual(request.http.urlString, "http://localhost/well-known/jwks.json")
@@ -43,7 +43,7 @@ class JWKSSignerRepositoryTests: XCTestCase {
     func testGetInvalidKid() throws {
         let signers = JWKSSignerRepository(jwksURL: "http://localhost/well-known/jwks.json")
         let container = self.mockContainer()
-        let client = try container.client() as! MockClient
+        let client = try container.make(Client.self) as! MockClient
 
         client.send = { request in
             XCTAssertEqual(request.http.urlString, "http://localhost/well-known/jwks.json")
