@@ -55,7 +55,7 @@ extension JWKSSignerRepository: JWTSignerRepository {
 
 extension JWKSSignerRepository: ServiceType {
 
-	public static var serviceSupports: [Any.Type] {
+    public static var serviceSupports: [Any.Type] {
         return [JWTSignerRepository.self]
     }
 
