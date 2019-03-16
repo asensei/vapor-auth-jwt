@@ -55,6 +55,10 @@ extension JWKSSignerRepository: JWTSignerRepository {
 
 extension JWKSSignerRepository: ServiceType {
 
+    public static var serviceSupports: [Any.Type] {
+        return [JWTSignerRepository.self]
+    }
+
     public static func makeService(for worker: Container) throws -> Self {
         return try .init(config: worker.make())
     }
