@@ -17,7 +17,8 @@ class JWTAuthenticationMiddlewareTests: XCTestCase {
 
     static let allTests = [
         ("testRespond", testRespond),
-        ("testRespondWithError", testRespondWithError)
+        ("testRespondWithError", testRespondWithError),
+        ("testRespondWithErrorWithExpiredClaim", testRespondWithErrorWithExpiredClaim)
     ]
 
     func testRespond() throws {
@@ -56,6 +57,31 @@ class JWTAuthenticationMiddlewareTests: XCTestCase {
             http: .init(
                 method: .GET,
                 url: "http://localhost/test"
+            ),
+            using: self.mockContainer()
+        )
+
+        let middleware = JWTAuthenticationMiddleware(MockPayload.self, signers: signers)
+        let responder = MockResponder(response: Response(http: .init(status: .continue), using: request))
+
+        XCTAssertNoThrow(try middleware.respond(to: request, chainingTo: responder).wait())
+        XCTAssertFalse(try request.isAuthenticated(MockPayload.self))
+    }
+
+    func testRespondWithErrorWithExpiredClaim() throws {
+
+        let signer = JWTSigner.hs256(key: Data("secret".utf8))
+        let signers = JWTSigners()
+        signers.use(signer, kid: "1234")
+        let jwt = JWT(header: .init(kid: "1234"), payload: MockPayload(exp: Date.distantPast))
+        let signatureData = try jwt.sign(using: signer)
+        let signature = String(bytes: signatureData, encoding: .utf8)!
+
+        let request = Request(
+            http: .init(
+                method: .GET,
+                url: "http://localhost/test",
+                headers: .init([("Authorization", "Bearer \(signature)")])
             ),
             using: self.mockContainer()
         )

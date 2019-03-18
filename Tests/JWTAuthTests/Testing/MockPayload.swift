@@ -12,13 +12,18 @@ import JWTAuth
 
 struct MockPayload: JWTAuthenticatable, JWTPayload, Equatable {
 
-    init(_ id: String = UUID().uuidString) {
+    init(_ id: String = UUID().uuidString, exp: Date = Date(timeIntervalSinceNow: 3600.0)) {
         self.id = id
+        self.exp = exp
     }
 
     let id: String
 
-    func verify(using signer: JWTSigner) throws { }
+    let exp: Date
+
+    func verify(using signer: JWTSigner) throws {
+        try ExpirationClaim(value: self.exp).verifyNotExpired()
+    }
 
     static func == (lhs: MockPayload, rhs: MockPayload) -> Bool {
         return lhs.id == rhs.id
