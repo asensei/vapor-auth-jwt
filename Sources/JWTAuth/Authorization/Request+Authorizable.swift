@@ -12,7 +12,7 @@ import Vapor
 
 // MARK: - Subject
 
-public extension Request {
+extension Request {
 
     public func requireAuthorized<A: Authenticatable & SubjectAuthorizable>(_ type: A.Type = A.self, subject: A.SubjectType?) throws {
         let authorizable: A = try self.requireAuthenticated()
@@ -35,7 +35,7 @@ public extension Request {
 
 // MARK: - Permission
 
-public extension Request {
+extension Request {
 
     public func requireAuthorized<A: Authenticatable & PermissionAuthorizable>(_ type: A.Type = A.self, permission: A.PermissionType) throws {
         let authorizable: A = try self.requireAuthenticated()

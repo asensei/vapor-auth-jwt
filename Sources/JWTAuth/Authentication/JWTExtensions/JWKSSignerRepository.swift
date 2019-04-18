@@ -64,7 +64,7 @@ extension JWKSSignerRepository: ServiceType {
     }
 }
 
-public extension JWKSSignerRepository {
+extension JWKSSignerRepository {
 
     public struct Config: ServiceType {
 
@@ -101,7 +101,7 @@ public extension JWKSSignerRepository {
     }
 }
 
-public extension JWKSSignerRepository.Config {
+extension JWKSSignerRepository.Config {
 
     public enum EnvironmentKey: String {
         case jwksURL = "JWTAUTH_JWKS_URL"

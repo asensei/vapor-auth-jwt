@@ -17,7 +17,7 @@ public protocol JWTAuthenticatable: Authenticatable {
     static func authenticate(using data: LosslessDataConvertible, signers: JWTSignerRepository, on worker: Container) -> Future<Self?>
 }
 
-public extension JWTAuthenticatable where Self: JWTPayload {
+extension JWTAuthenticatable where Self: JWTPayload {
 
     public static func authenticate(using data: LosslessDataConvertible, signers: JWTSignerRepository, on worker: Container) -> Future<Self?> {
         return JWT<Self>.data(data, verifiedUsing: signers, on: worker).map({ $0.payload }).mapIfError({ _ in nil })

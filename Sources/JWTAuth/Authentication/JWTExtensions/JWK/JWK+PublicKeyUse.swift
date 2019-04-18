@@ -8,7 +8,8 @@
 
 import Foundation
 
-public extension JWK {
+extension JWK {
+
     public enum PublicKeyUse: RawRepresentable, Codable {
         case signature
         case encryption
