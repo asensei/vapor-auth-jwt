@@ -15,14 +15,14 @@ public protocol SubjectAuthorizable: Authorizable {
     func requireAuthorized(subject: SubjectType?) throws
 }
 
-public extension SubjectAuthorizable {
+extension SubjectAuthorizable {
 
     public func isAuthorized(subject: SubjectType?) -> Bool {
         return (try? self.requireAuthorized(subject: subject)) != nil
     }
 }
 
-public extension SubjectAuthorizable where Self.SubjectType: Hashable {
+extension SubjectAuthorizable where Self.SubjectType: Hashable {
 
     public func requireAuthorized(anyOfSubjects subjects: Set<SubjectType>?) throws {
 

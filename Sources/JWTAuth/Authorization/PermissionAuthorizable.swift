@@ -16,7 +16,7 @@ public protocol PermissionAuthorizable: Authorizable {
     func requireAuthorized(permission: PermissionType) throws
 }
 
-public extension PermissionAuthorizable {
+extension PermissionAuthorizable {
 
     public func requireAuthorized(allOfPermissions permissions: Set<PermissionType>) throws {
         for permission in permissions {
