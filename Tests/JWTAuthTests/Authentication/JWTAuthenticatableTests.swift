@@ -13,10 +13,6 @@ import Service
 
 class JWTAuthenticatableTests: XCTestCase {
 
-    static let allTests = [
-        ("testAuthenticate", testAuthenticate)
-    ]
-
     func testAuthenticate() throws {
         let signer = JWTSigner.hs256(key: Data("secret".utf8))
         let signers = JWTSigners()

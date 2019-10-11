@@ -19,7 +19,7 @@ extension BasicContainer {
             config: Config(),
             environment: .testing,
             services: services,
-            on: EmbeddedEventLoop()
+            on: MultiThreadedEventLoopGroup(numberOfThreads: 1)
         )
     }
 }

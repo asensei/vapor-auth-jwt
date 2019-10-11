@@ -13,12 +13,6 @@ import Service
 
 class JWTSignersJWTSignerRepositoryTests: XCTestCase {
 
-    static let allTests = [
-        ("testGetValidKid", testGetValidKid),
-        ("testGetInvalidKid", testGetInvalidKid),
-        ("testMakeService", testMakeService)
-    ]
-
     func testGetValidKid() throws {
         let signer = JWTSigner.hs256(key: Data("secret".utf8))
         let signers = JWTSigners()
@@ -42,7 +36,7 @@ class JWTSignersJWTSignerRepositoryTests: XCTestCase {
             config: Config(),
             environment: .testing,
             services: services,
-            on: EmbeddedEventLoop()
+            on: MultiThreadedEventLoopGroup(numberOfThreads: 1)
         )
 
         XCTAssertNoThrow(try container.make(JWTSigners.self))

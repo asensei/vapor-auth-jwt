@@ -15,12 +15,6 @@ import JWT
 
 class JWTAuthenticationMiddlewareTests: XCTestCase {
 
-    static let allTests = [
-        ("testRespond", testRespond),
-        ("testRespondWithError", testRespondWithError),
-        ("testRespondWithErrorWithExpiredClaim", testRespondWithErrorWithExpiredClaim)
-    ]
-
     func testRespond() throws {
 
         let signer = JWTSigner.hs256(key: Data("secret".utf8))
@@ -113,7 +107,7 @@ extension JWTAuthenticationMiddlewareTests {
             config: Config(),
             environment: .testing,
             services: services,
-            on: EmbeddedEventLoop()
+            on: MultiThreadedEventLoopGroup(numberOfThreads: 1)
         )
     }
 }

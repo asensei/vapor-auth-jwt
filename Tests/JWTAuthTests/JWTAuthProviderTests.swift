@@ -12,10 +12,6 @@ import Vapor
 
 class JWTAuthProviderTests: XCTestCase {
 
-    static let allTests = [
-        ("testBoot", testBoot)
-    ]
-
     func testBoot() throws {
 
         var services = Services()

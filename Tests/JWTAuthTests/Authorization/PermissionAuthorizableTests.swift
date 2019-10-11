@@ -11,12 +11,6 @@ import XCTest
 
 class PermissionAuthorizableTests: XCTestCase {
 
-    static let allTests = [
-        ("testIsAuthorized", testIsAuthorized),
-        ("testRequireAuthorizedAllOf", testRequireAuthorizedAllOf),
-        ("testRequireAuthorizedAnyOf", testRequireAuthorizedAnyOf)
-    ]
-
     func testIsAuthorized() {
         var mock = MockAuthorizable(subject: "1234")
         mock.permissions = ["read", "write"]
