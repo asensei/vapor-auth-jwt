@@ -12,13 +12,6 @@ import Vapor
 
 class RequestAuthorizableTests: XCTestCase {
 
-    static let allTests = [
-        ("testRequireAuthorizedSubject", testRequireAuthorizedSubject),
-        ("testRequireAuthorizedSubjectWithUnauthenticatedRequest", testRequireAuthorizedSubjectWithUnauthenticatedRequest),
-        ("testRequireAuthorizedPermission", testRequireAuthorizedPermission),
-        ("testRequireAuthorizedPermissionWithUnauthenticatedRequest", testRequireAuthorizedPermissionWithUnauthenticatedRequest)
-    ]
-
     func testRequireAuthorizedSubject() {
         let mock = MockAuthorizable(subject: "1234")
         let request = Request(http: .init(method: .GET, url: "http://localhost"), using: BasicContainer.mock)

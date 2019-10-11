@@ -11,11 +11,6 @@ import XCTest
 
 class SubjectAuthorizableTests: XCTestCase {
 
-    static let allTests = [
-        ("testIsAuthorized", testIsAuthorized),
-        ("testRequireAuthorizedAnyOf", testRequireAuthorizedAnyOf)
-    ]
-
     func testIsAuthorized() {
         let mock = MockAuthorizable(subject: "1234")
 

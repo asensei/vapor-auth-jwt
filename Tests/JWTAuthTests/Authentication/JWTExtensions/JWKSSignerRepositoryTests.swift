@@ -13,12 +13,6 @@ import Vapor
 
 class JWKSSignerRepositoryTests: XCTestCase {
 
-    static let allTests = [
-        ("testGetValidKid", testGetValidKid),
-        ("testGetInvalidKid", testGetInvalidKid),
-        ("testMakeService", testMakeService)
-    ]
-
     func testGetValidKid() throws {
         let privateSigner = try JWTSigner.jwk(key: JSONDecoder().decode(JWK.self, from: JWKSSignerRepositoryTests.privateJWK))
         let signers = JWKSSignerRepository(jwksURL: "http://localhost/well-known/jwks.json")

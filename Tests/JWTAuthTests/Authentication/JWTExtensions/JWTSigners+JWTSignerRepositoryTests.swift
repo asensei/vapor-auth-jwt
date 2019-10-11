@@ -13,12 +13,6 @@ import Service
 
 class JWTSignersJWTSignerRepositoryTests: XCTestCase {
 
-    static let allTests = [
-        ("testGetValidKid", testGetValidKid),
-        ("testGetInvalidKid", testGetInvalidKid),
-        ("testMakeService", testMakeService)
-    ]
-
     func testGetValidKid() throws {
         let signer = JWTSigner.hs256(key: Data("secret".utf8))
         let signers = JWTSigners()

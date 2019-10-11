@@ -1,6 +1,6 @@
 # vapor-auth-jwt
 
-![Swift](https://img.shields.io/badge/swift-5.0-orange.svg)
+![Swift](https://img.shields.io/badge/swift-5.1-orange.svg)
 [![Build Status](https://travis-ci.com/asensei/vapor-auth-jwt.svg?token=eSrCssnzja3G3GciyhUB&branch=master)](https://travis-ci.com/asensei/vapor-auth-jwt)
 
 Provides custom model authentication and authorization through JWT tokens.
