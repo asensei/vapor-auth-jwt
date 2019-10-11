@@ -62,7 +62,7 @@ class JWKSSignerRepositoryTests: XCTestCase {
             config: Config(),
             environment: .testing,
             services: services,
-            on: EmbeddedEventLoop()
+            on: MultiThreadedEventLoopGroup(numberOfThreads: 1)
         )
 
         XCTAssertNoThrow(try container.make(JWKSSignerRepository.self))
@@ -82,7 +82,7 @@ extension JWKSSignerRepositoryTests {
             config: config,
             environment: .testing,
             services: services,
-            on: EmbeddedEventLoop()
+            on: MultiThreadedEventLoopGroup(numberOfThreads: 1)
         )
     }
 
