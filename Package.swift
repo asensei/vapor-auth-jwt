@@ -18,7 +18,7 @@ let package = Package(
     dependencies: [
       .package(url: "https://github.com/vapor/vapor.git", .upToNextMajor(from: "3.3.1")),
       .package(url: "https://github.com/vapor/auth.git", .upToNextMajor(from: "2.0.4")),
-      .package(url: "https://github.com/vapor/jwt.git", .upToNextMajor(from: "3.0.0"))
+      .package(url: "https://github.com/vapor/jwt.git", .upToNextMajor(from: "3.1.0"))
     ],
     targets: [
         .target(name: "JWTAuth", dependencies: ["Vapor", "Authentication", "JWT"]),
