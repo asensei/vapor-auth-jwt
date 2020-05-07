@@ -12,22 +12,22 @@ public protocol SubjectAuthorizable: Authorizable {
 
     associatedtype SubjectType
 
-    func requireAuthorized(subject: SubjectType?) throws
+    func require(subject: SubjectType?) throws
 }
 
 extension SubjectAuthorizable {
 
-    public func isAuthorized(subject: SubjectType?) -> Bool {
-        return (try? self.requireAuthorized(subject: subject)) != nil
+    public func has(subject: SubjectType?) -> Bool {
+        return (try? self.require(subject: subject)) != nil
     }
 }
 
 extension SubjectAuthorizable where Self.SubjectType: Hashable {
 
-    public func requireAuthorized(anyOfSubjects subjects: Set<SubjectType>?) throws {
+    public func require(anyOfSubjects subjects: Set<SubjectType>?) throws {
 
         guard let subjects = subjects, !subjects.isEmpty else {
-            try self.requireAuthorized(subject: nil)
+            try self.require(subject: nil)
 
             return
         }
@@ -36,7 +36,7 @@ extension SubjectAuthorizable where Self.SubjectType: Hashable {
 
         for subject in subjects {
             do {
-                try self.requireAuthorized(subject: subject)
+                try self.require(subject: subject)
 
                 return
             } catch {
@@ -49,7 +49,7 @@ extension SubjectAuthorizable where Self.SubjectType: Hashable {
         }
     }
 
-    public func isAuthorized(anyOfSubjects subjects: Set<SubjectType>?) -> Bool {
-        return (try? self.requireAuthorized(anyOfSubjects: subjects)) != nil
+    public func has(anyOfSubjects subjects: Set<SubjectType>?) -> Bool {
+        return (try? self.require(anyOfSubjects: subjects)) != nil
     }
 }

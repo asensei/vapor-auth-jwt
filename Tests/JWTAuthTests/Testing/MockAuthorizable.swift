@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Authentication
+import Vapor
 import JWTAuth
 
 struct MockAuthorizable {
@@ -22,7 +22,7 @@ struct MockAuthorizable {
 
 extension MockAuthorizable: SubjectAuthorizable {
 
-    func requireAuthorized(subject: String?) throws {
+    func require(subject: String?) throws {
         guard self.subject == subject else {
             throw MockAuthorizableError.invalidSubject
         }
@@ -31,7 +31,7 @@ extension MockAuthorizable: SubjectAuthorizable {
 
 extension MockAuthorizable: PermissionAuthorizable {
 
-    func requireAuthorized(permission: String) throws {
+    func require(permission: String) throws {
         guard self.permissions.contains(permission) else {
             throw MockAuthorizableError.invalidPermission
         }

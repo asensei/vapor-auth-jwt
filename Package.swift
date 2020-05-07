@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.2
 
 //
 //  Package.swift
@@ -12,16 +12,18 @@ import PackageDescription
 
 let package = Package(
     name: "JWTAuth",
+    platforms: [
+       .macOS(.v10_15)
+    ],
     products: [
       .library(name: "JWTAuth", targets: ["JWTAuth"])
     ],
     dependencies: [
-      .package(url: "https://github.com/vapor/vapor.git", .upToNextMajor(from: "3.3.1")),
-      .package(url: "https://github.com/vapor/auth.git", .upToNextMajor(from: "2.0.4")),
-      .package(url: "https://github.com/vapor/jwt.git", .upToNextMajor(from: "3.1.0"))
+      .package(url: "https://github.com/vapor/vapor.git", .upToNextMajor(from: "4.5.0")),
+      .package(url: "https://github.com/vapor/jwt.git", .upToNextMajor(from: "4.0.0-rc.2"))
     ],
     targets: [
-        .target(name: "JWTAuth", dependencies: ["Vapor", "Authentication", "JWT"]),
-        .testTarget(name: "JWTAuthTests", dependencies: ["JWTAuth"])
+        .target(name: "JWTAuth", dependencies: [.product(name: "Vapor", package: "vapor"), .product(name: "JWT", package: "jwt")]),
+        .testTarget(name: "JWTAuthTests", dependencies: [.product(name: "XCTVapor", package: "vapor"), "JWTAuth"])
     ]
 )

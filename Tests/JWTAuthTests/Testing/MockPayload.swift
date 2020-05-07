@@ -10,7 +10,7 @@ import Foundation
 import JWT
 import JWTAuth
 
-struct MockPayload: JWTAuthenticatable, JWTPayload, Equatable {
+struct MockPayload: JWTPayload, Equatable {
 
     init(_ id: String = UUID().uuidString, exp: Date = Date(timeIntervalSinceNow: 3600.0)) {
         self.id = id
