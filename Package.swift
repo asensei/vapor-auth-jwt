@@ -19,11 +19,10 @@ let package = Package(
       .library(name: "JWTAuth", targets: ["JWTAuth"])
     ],
     dependencies: [
-      .package(url: "https://github.com/vapor/vapor.git", .upToNextMajor(from: "4.5.0")),
-      .package(url: "https://github.com/vapor/jwt.git", .upToNextMajor(from: "4.0.0-rc.2"))
+      .package(url: "https://github.com/vapor/vapor.git", .upToNextMajor(from: "4.8.0"))
     ],
     targets: [
-        .target(name: "JWTAuth", dependencies: [.product(name: "Vapor", package: "vapor"), .product(name: "JWT", package: "jwt")]),
+        .target(name: "JWTAuth", dependencies: [.product(name: "Vapor", package: "vapor")]),
         .testTarget(name: "JWTAuthTests", dependencies: [.product(name: "XCTVapor", package: "vapor"), "JWTAuth"])
     ]
 )
