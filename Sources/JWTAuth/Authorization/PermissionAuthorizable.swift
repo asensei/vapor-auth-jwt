@@ -13,24 +13,24 @@ public protocol PermissionAuthorizable: Authorizable {
 
     associatedtype PermissionType: Hashable
 
-    func requireAuthorized(permission: PermissionType) throws
+    func require(permission: PermissionType) throws
 }
 
 extension PermissionAuthorizable {
 
-    public func requireAuthorized(allOfPermissions permissions: Set<PermissionType>) throws {
+    public func require(allOfPermissions permissions: Set<PermissionType>) throws {
         for permission in permissions {
-            try self.requireAuthorized(permission: permission)
+            try self.require(permission: permission)
         }
     }
 
-    public func requireAuthorized(anyOfPermissions permissions: Set<PermissionType>) throws {
+    public func require(anyOfPermissions permissions: Set<PermissionType>) throws {
 
         var lastError: Swift.Error?
 
         for permission in permissions {
             do {
-                try self.requireAuthorized(permission: permission)
+                try self.require(permission: permission)
 
                 return
             } catch {
@@ -43,15 +43,15 @@ extension PermissionAuthorizable {
         }
     }
 
-    public func isAuthorized(permission: PermissionType) -> Bool {
-        return (try? self.requireAuthorized(permission: permission)) != nil
+    public func has(permission: PermissionType) -> Bool {
+        return (try? self.require(permission: permission)) != nil
     }
 
-    public func isAuthorized(allOfPermissions permissions: Set<PermissionType>) -> Bool {
-        return (try? self.requireAuthorized(allOfPermissions: permissions)) != nil
+    public func has(allOfPermissions permissions: Set<PermissionType>) -> Bool {
+        return (try? self.require(allOfPermissions: permissions)) != nil
     }
 
-    public func isAuthorized(anyOfPermissions permissions: Set<PermissionType>) -> Bool {
-        return (try? self.requireAuthorized(anyOfPermissions: permissions)) != nil
+    public func has(anyOfPermissions permissions: Set<PermissionType>) -> Bool {
+        return (try? self.require(anyOfPermissions: permissions)) != nil
     }
 }

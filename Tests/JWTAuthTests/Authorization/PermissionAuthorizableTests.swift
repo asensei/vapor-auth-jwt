@@ -15,30 +15,30 @@ class PermissionAuthorizableTests: XCTestCase {
         var mock = MockAuthorizable(subject: "1234")
         mock.permissions = ["read", "write"]
 
-        XCTAssertTrue(mock.isAuthorized(permission: "read"))
-        XCTAssertTrue(mock.isAuthorized(permission: "write"))
-        XCTAssertFalse(mock.isAuthorized(permission: "delete"))
+        XCTAssertTrue(mock.has(permission: "read"))
+        XCTAssertTrue(mock.has(permission: "write"))
+        XCTAssertFalse(mock.has(permission: "delete"))
     }
 
     func testRequireAuthorizedAllOf() {
         var mock = MockAuthorizable(subject: "1234")
         mock.permissions = ["read", "write"]
 
-        XCTAssertNoThrow(try mock.requireAuthorized(allOfPermissions: []))
-        XCTAssertNoThrow(try mock.requireAuthorized(allOfPermissions: ["read", "write"]))
-        XCTAssertThrowsError(try mock.requireAuthorized(allOfPermissions: ["read", "delete"]))
-        XCTAssertTrue(mock.isAuthorized(allOfPermissions: ["read", "write"]))
-        XCTAssertFalse(mock.isAuthorized(allOfPermissions: ["read", "delete"]))
+        XCTAssertNoThrow(try mock.require(allOfPermissions: []))
+        XCTAssertNoThrow(try mock.require(allOfPermissions: ["read", "write"]))
+        XCTAssertThrowsError(try mock.require(allOfPermissions: ["read", "delete"]))
+        XCTAssertTrue(mock.has(allOfPermissions: ["read", "write"]))
+        XCTAssertFalse(mock.has(allOfPermissions: ["read", "delete"]))
     }
 
     func testRequireAuthorizedAnyOf() {
         var mock = MockAuthorizable(subject: "1234")
         mock.permissions = ["read", "write"]
 
-        XCTAssertNoThrow(try mock.requireAuthorized(anyOfPermissions: []))
-        XCTAssertNoThrow(try mock.requireAuthorized(anyOfPermissions: ["read", "delete"]))
-        XCTAssertThrowsError(try mock.requireAuthorized(anyOfPermissions: ["update", "delete"]))
-        XCTAssertTrue(mock.isAuthorized(anyOfPermissions: ["read", "delete"]))
-        XCTAssertFalse(mock.isAuthorized(anyOfPermissions: ["update", "delete"]))
+        XCTAssertNoThrow(try mock.require(anyOfPermissions: []))
+        XCTAssertNoThrow(try mock.require(anyOfPermissions: ["read", "delete"]))
+        XCTAssertThrowsError(try mock.require(anyOfPermissions: ["update", "delete"]))
+        XCTAssertTrue(mock.has(anyOfPermissions: ["read", "delete"]))
+        XCTAssertFalse(mock.has(anyOfPermissions: ["update", "delete"]))
     }
 }

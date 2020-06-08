@@ -18,17 +18,15 @@ jobs:
       services: docker
       script:
         - docker pull ${SWIFT_DOCKER_IMAGE}
-        - args="apt-get update
-            && apt-get -y install libssl-dev zlib1g-dev
-            && swift build -c debug
-            && swift build -c release
-            && swift test -c debug --sanitize=thread --enable-test-discovery"
+        - args="swift build --enable-test-discovery -c debug
+            && swift build --enable-test-discovery -c release
+            && swift test --enable-test-discovery -c debug --sanitize=thread"
         - docker run --rm -v $(pwd):/app -v ~/.ssh/known_hosts:/root/.ssh/known_hosts:ro -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent --workdir /app ${SWIFT_DOCKER_IMAGE} bash -c "${args}"
 
     - stage: test
       name: Unit Tests
       os: osx
-      osx_image: xcode11.3
+      osx_image: xcode11.5
       before_script:
         - gem install bundler
         - bundle install
