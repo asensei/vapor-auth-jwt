@@ -17,16 +17,18 @@ jobs:
       dist: bionic
       services: docker
       script:
-        - docker pull ${SWIFT_DOCKER_IMAGE}
-        - args="swift build --enable-test-discovery -c debug
-            && swift build --enable-test-discovery -c release
-            && swift test --enable-test-discovery -c debug --sanitize=thread"
+        - bash <(curl -s https://asensei.github.io/scripts/init-docker-credential-pass.sh)
+        - echo "${DOCKER_ACCESS_TOKEN}" | docker login --username asenseici --password-stdin
+        - docker pull ${SWIFT_DOCKER_IMAGE} && docker logout
+        - args="swift build -c debug
+            && swift build -c release
+            && swift test -c debug --sanitize=thread"
         - docker run --rm -v $(pwd):/app -v ~/.ssh/known_hosts:/root/.ssh/known_hosts:ro -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent --workdir /app ${SWIFT_DOCKER_IMAGE} bash -c "${args}"
 
     - stage: test
       name: Unit Tests
       os: osx
-      osx_image: xcode11.5
+      osx_image: xcode12.5
       before_script:
         - gem install bundler
         - bundle install
@@ -37,8 +39,9 @@ jobs:
         - swift --version
         - swift build -c debug
         - swift build -c release
-        - swift test -c debug --sanitize=thread --enable-test-discovery
+        - swift test -c debug --enable-code-coverage --sanitize=thread
         - swiftlint
+        - bash <(curl -s https://asensei.github.io/scripts/codecov.sh)
 
 notifications:
   email:

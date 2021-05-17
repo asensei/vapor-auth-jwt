@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.4
 
 //
 //  Package.swift
@@ -19,7 +19,7 @@ let package = Package(
       .library(name: "JWTAuth", targets: ["JWTAuth"])
     ],
     dependencies: [
-      .package(url: "https://github.com/vapor/vapor.git", .upToNextMajor(from: "4.8.0"))
+      .package(url: "https://github.com/vapor/vapor.git", .upToNextMajor(from: "4.45.3"))
     ],
     targets: [
         .target(name: "JWTAuth", dependencies: [.product(name: "Vapor", package: "vapor")]),
