@@ -4,8 +4,6 @@ disabled_rules: # rule identifiers to exclude from running
   - type_name
   - large_tuple
 function_body_length: 50
-type_name:
-  max_length: 60
 type_body_length: 400
 file_length: 630
 nesting:
